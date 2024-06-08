@@ -130,8 +130,9 @@ def mark_summaries(G: nx.MultiDiGraph, base_path: str, root_nodes=None):
 
 
 def save_graph(G: nx.MultiDiGraph, path: str):
-    with open(path, "wb") as f:
+    with open(path + ".pkl", "wb") as f:
         pickle.dump(G, f)
+    nx.write_graphml(G, path + ".graphml")
 
 
 def create_graph(elist_df, dataset_name, dataset_dir, save_name, input_files_base_path, output_files_base_path,

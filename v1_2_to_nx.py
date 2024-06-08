@@ -40,22 +40,22 @@ def fold_group(fold_base_path):
 def create_fold_graphs(elist_df, dataset, dataset_dir, fold_data: Dict[int, set], fold_table: List[tuple]):
     for i, (train, val, test) in enumerate(fold_table):
         train_nodes = fold_data[train[0]].union(fold_data[train[1]]).union(fold_data[train[2]])
-        g_train = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_train_{i}.pkl", input_files_base_path,
+        g_train = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_train_{i}", input_files_base_path,
                                output_files_base_path, train_nodes)
         print(g_train)
-        g_val = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_val_{i}.pkl", input_files_base_path,
+        g_val = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_val_{i}", input_files_base_path,
                              output_files_base_path, fold_data[val])
         print(g_val)
-        g_test = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_test_{i}.pkl", input_files_base_path,
+        g_test = create_graph(elist_df, dataset, dataset_dir, f"v1_2_{dataset}_test_{i}", input_files_base_path,
                               output_files_base_path, fold_data[test])
         print(g_test)
 
 
-dbpedia = create_graph(elist_df, "dbpedia", "dbpedia_data", "v1_2_dbpedia_full.pkl",
+dbpedia = create_graph(elist_df, "dbpedia", "dbpedia_data", "v1_2_dbpedia_full",
                        input_files_base_path, output_files_base_path,
                        )
 print(dbpedia)
-lmdb = create_graph(elist_df, "linkedmdb", "lmdb_data", "v1_2_linkedmdb_full.pkl",
+lmdb = create_graph(elist_df, "linkedmdb", "lmdb_data", "v1_2_linkedmdb_full",
                     input_files_base_path, output_files_base_path, )
 print(lmdb)
 

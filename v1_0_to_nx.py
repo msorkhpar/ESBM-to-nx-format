@@ -12,10 +12,10 @@ elist_df = pd.read_csv(os.path.join(input_files_base_path, "elist.txt"), sep="\t
     "eid", "class", "euri", "elabel", "tripleNum"
 ])
 
-dbpedia = create_graph(elist_df, "dbpedia", "dbpedia", "v1_0_dbpedia_full.pkl",
+dbpedia = create_graph(elist_df, "dbpedia", "dbpedia", "v1_0_dbpedia_full",
                        input_files_base_path, output_files_base_path)
 print(dbpedia)
 
-lmdb = create_graph(elist_df, "linkedmdb", "lmdb", "v1_0_linkedmdb_full.pkl",
+lmdb = create_graph(elist_df, "linkedmdb", "lmdb", "v1_0_linkedmdb_full",
                     input_files_base_path, output_files_base_path)
 print(lmdb)
