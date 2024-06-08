@@ -1,2 +1,2 @@
-# ESBM-to-WikES-format
-Converting ESBM dataset files to WikES graph format.
+# ESBM-to-nx-format
+Converting ESBM dataset files to nx graph format.
