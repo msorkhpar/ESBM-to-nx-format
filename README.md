@@ -1,4 +1,4 @@
-# ESBM-to-WikES-format
+# ESBM-to-nx-format
 
 Converting ESBM dataset files to NetworkX graph format.
 
