@@ -1,5 +1,6 @@
 import os
 import pickle
+import random
 import re
 
 import networkx as nx
@@ -129,10 +130,23 @@ def mark_summaries(G: nx.MultiDiGraph, base_path: str, root_nodes=None):
                                     counter += 1
 
 
-def save_graph(G: nx.MultiDiGraph, path: str):
+def save_graph(graph: nx.MultiDiGraph, path: str):
+    # shuffling the graph to avoid the same order of nodes and edges
+    nodes = list(graph.nodes(data=True))
+    edges = list(graph.edges(data=True))
+
+    random.shuffle(nodes)
+    random.shuffle(edges)
+
+    shuffled_graph: nx.MultiDiGraph = nx.MultiDiGraph()
+    shuffled_graph.add_nodes_from(nodes)
+    for s, o, data in edges:
+        shuffled_graph.add_edge(s, o, key=data['predicate'], **data)
+
     with open(path + ".pkl", "wb") as f:
-        pickle.dump(G, f)
-    nx.write_graphml(G, path + ".graphml")
+        pickle.dump(shuffled_graph, f)
+    nx.write_graphml(shuffled_graph, path + ".graphml")
+    return shuffled_graph
 
 
 def create_graph(elist_df, dataset_name, dataset_dir, save_name, input_files_base_path, output_files_base_path,
@@ -140,5 +154,5 @@ def create_graph(elist_df, dataset_name, dataset_dir, save_name, input_files_bas
     graph = get_graph(elist_df, dataset_name, root_nodes)
     add_edges(graph, os.path.join(input_files_base_path, dataset_dir), root_nodes)
     mark_summaries(graph, os.path.join(input_files_base_path, dataset_dir), root_nodes)
-    save_graph(graph, os.path.join(output_files_base_path, save_name))
+    graph = save_graph(graph, os.path.join(output_files_base_path, save_name))
     return graph
