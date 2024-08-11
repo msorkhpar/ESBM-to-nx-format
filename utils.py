@@ -94,12 +94,8 @@ def add_edges(G: nx.MultiDiGraph, base_path: str, root_nodes=None):
                                 triple = parse_nt_line(line)
                                 if triple:
                                     s, p, o = rdf_to_tuple(triple)
-                                    if s not in root_nodes and o not in root_nodes:
-                                        continue
                                     if not G.has_edge(s, o, key=p):
                                         G.add_edge(s, o, key=p, predicate=p)
-                                    else:
-                                        print(f"Edge already exists: {s} {p} {o}")
 
 
 def mark_summaries(G: nx.MultiDiGraph, base_path: str, root_nodes=None):
