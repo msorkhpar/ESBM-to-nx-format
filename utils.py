@@ -30,16 +30,15 @@ def rdf_to_tuple(triple):
     return s, p, o
 
 
-nt_triple_pattern = re.compile(
-    r'(<[^>]+>|"_:[^ ]+"|<[^>]*>|"[^"]*"(@[^ ]+|\^\^<[^>]+>)?)\s(<[^>]+>|[^ ]*)\s(<[^>]+>|"[^"]*"(@[^ ]+|\^\^<[^>]+>)?)\s\.\s*')
+nt_triple_pattern = re.compile(r'<?(.*?)>?\s+<?(.*?)>?\s+<?(.*?)>?\s+\.\s*')
 
 
 def parse_nt_line(line):
     match = nt_triple_pattern.match(line)
     if match:
         subject = match.group(1)
-        predicate = match.group(3)
-        object_ = match.group(4)
+        predicate = match.group(2)
+        object_ = match.group(3)
 
         def parse_term(term):
             if term.startswith('<') and term.endswith('>'):
